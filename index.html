@@ -111,22 +111,28 @@
                     <h3 class="text-2xl font-bold text-gray-900">Motos</h3>
                     <p class="text-gray-500 mb-4">Uso particular y trabajo</p>
                     
-                    <!-- Precios Moto -->
-                    <div class="space-y-3 mb-6">
-                        <div class="bg-blue-50 p-3 rounded-lg">
-                            <span class="text-xs font-bold text-blue-800 uppercase block mb-1">Multiseguros</span>
+                    <!-- Precios Moto Desglosados -->
+                    <div class="space-y-4 mb-6">
+                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                            <span class="text-xs font-bold text-blue-800 uppercase block mb-2 border-b border-blue-200 pb-1">Multiseguros</span>
+                            <div class="flex justify-between items-center text-sm mb-1">
+                                <span class="text-gray-600">Básico:</span>
+                                <span class="font-bold text-blue-900 text-lg">$6</span>
+                            </div>
                             <div class="flex justify-between items-center text-sm">
-                                <span>Básico: <strong>$6</strong></span>
-                                <span>|</span>
-                                <span>Plus: <strong>$8</strong></span>
+                                <span class="text-gray-600">Plus:</span>
+                                <span class="font-bold text-blue-900 text-lg">$8</span>
                             </div>
                         </div>
-                        <div class="bg-purple-50 p-3 rounded-lg">
-                            <span class="text-xs font-bold text-purple-800 uppercase block mb-1">Conseres</span>
+                        <div class="bg-purple-50 p-3 rounded-lg border border-purple-100">
+                            <span class="text-xs font-bold text-purple-800 uppercase block mb-2 border-b border-purple-200 pb-1">Conseres</span>
+                            <div class="flex justify-between items-center text-sm mb-1">
+                                <span class="text-gray-600">Estándar:</span>
+                                <span class="font-bold text-purple-900 text-lg">$10</span>
+                            </div>
                             <div class="flex justify-between items-center text-sm">
-                                <span>Estándar: <strong>$10</strong></span>
-                                <span>|</span>
-                                <span>Premium: <strong>$15</strong></span>
+                                <span class="text-gray-600">Premium:</span>
+                                <span class="font-bold text-purple-900 text-lg">$15</span>
                             </div>
                         </div>
                     </div>
@@ -148,22 +154,28 @@
                     <h3 class="text-2xl font-bold text-gray-900">Vehículos</h3>
                     <p class="text-gray-500 mb-4">Livianos y Paseo</p>
 
-                    <!-- Precios Carro -->
-                    <div class="space-y-3 mb-6">
-                        <div class="bg-blue-50 p-3 rounded-lg">
-                            <span class="text-xs font-bold text-blue-800 uppercase block mb-1">Multiseguros</span>
+                    <!-- Precios Carro Desglosados -->
+                    <div class="space-y-4 mb-6">
+                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                            <span class="text-xs font-bold text-blue-800 uppercase block mb-2 border-b border-blue-200 pb-1">Multiseguros</span>
+                            <div class="flex justify-between items-center text-sm mb-1">
+                                <span class="text-gray-600">Básico:</span>
+                                <span class="font-bold text-blue-900 text-lg">$10</span>
+                            </div>
                             <div class="flex justify-between items-center text-sm">
-                                <span>Básico: <strong>$10</strong></span>
-                                <span>|</span>
-                                <span>Plus: <strong>$12</strong></span>
+                                <span class="text-gray-600">Plus:</span>
+                                <span class="font-bold text-blue-900 text-lg">$12</span>
                             </div>
                         </div>
-                        <div class="bg-purple-50 p-3 rounded-lg">
-                            <span class="text-xs font-bold text-purple-800 uppercase block mb-1">Conseres</span>
+                        <div class="bg-purple-50 p-3 rounded-lg border border-purple-100">
+                            <span class="text-xs font-bold text-purple-800 uppercase block mb-2 border-b border-purple-200 pb-1">Conseres</span>
+                            <div class="flex justify-between items-center text-sm mb-1">
+                                <span class="text-gray-600">Estándar:</span>
+                                <span class="font-bold text-purple-900 text-lg">$16</span>
+                            </div>
                             <div class="flex justify-between items-center text-sm">
-                                <span>Estándar: <strong>$16</strong></span>
-                                <span>|</span>
-                                <span>Premium: <strong>$20</strong></span>
+                                <span class="text-gray-600">Premium:</span>
+                                <span class="font-bold text-purple-900 text-lg">$20</span>
                             </div>
                         </div>
                     </div>
@@ -303,13 +315,27 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Vehículo</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Selecciona tu Plan Exacto:</label>
                         <select id="vehicle" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white">
-                            <option value="Moto Multiseguros ($6)">Moto Multiseguros ($6)</option>
-                            <option value="Moto Conseres ($10)">Moto Conseres ($10)</option>
-                            <option value="Vehículo Multiseguros ($10)">Vehículo Multiseguros ($10)</option>
-                            <option value="Vehículo Conseres ($16)">Vehículo Conseres ($16)</option>
-                            <option value="Pesado/Camión">Carga Pesada (Cotizar)</option>
+                            <optgroup label="MOTOS - Multiseguros">
+                                <option value="Moto Multiseguros Básico ($6)">Moto Multiseguros Básico ($6)</option>
+                                <option value="Moto Multiseguros Plus ($8)">Moto Multiseguros Plus ($8)</option>
+                            </optgroup>
+                            <optgroup label="MOTOS - Conseres">
+                                <option value="Moto Conseres Estándar ($10)">Moto Conseres Estándar ($10)</option>
+                                <option value="Moto Conseres Premium ($15)">Moto Conseres Premium ($15)</option>
+                            </optgroup>
+                            <optgroup label="VEHÍCULOS - Multiseguros">
+                                <option value="Vehículo Multiseguros Básico ($10)">Vehículo Multiseguros Básico ($10)</option>
+                                <option value="Vehículo Multiseguros Plus ($12)">Vehículo Multiseguros Plus ($12)</option>
+                            </optgroup>
+                            <optgroup label="VEHÍCULOS - Conseres">
+                                <option value="Vehículo Conseres Estándar ($16)">Vehículo Conseres Estándar ($16)</option>
+                                <option value="Vehículo Conseres Premium ($20)">Vehículo Conseres Premium ($20)</option>
+                            </optgroup>
+                            <optgroup label="CARGA PESADA">
+                                <option value="Pesado/Camión">Carga Pesada / Flota (Cotizar)</option>
+                            </optgroup>
                         </select>
                     </div>
 
@@ -370,10 +396,14 @@
         // -----------------------------------------------------
         //  BASE DE DATOS DE CLIENTES (PARA AGREGAR NUEVOS)
         // -----------------------------------------------------
+        // IMPORTANTE: Al ser una página web estática (sin servidor privado),
+        // NO HAY CONEXIÓN AUTOMÁTICA con otros programas de tu computadora.
+        // Para que un cliente salga "Verificado", debes agregarlo aquí MANUALMENTE.
+        
         // INSTRUCCIONES:
-        // Para agregar un cliente nuevo, copia la línea de abajo y pégala
-        // antes del "];". Cambia los datos por los del cliente.
-        // { placa: "PLACA", cedula: "CEDULA", nombre: "NOMBRE", vencimiento: "FECHA" },
+        // 1. Copia la línea de ejemplo.
+        // 2. Pégala abajo y cambia los datos.
+        // Formato: { placa: "PLACA", cedula: "CEDULA", nombre: "NOMBRE", vencimiento: "FECHA" },
         
         const dataBase = [
             // Cliente de Prueba (Puedes borrarlo o editarlo)
@@ -483,20 +513,3 @@
     </script>
 </body>
 </html>
-```
-
-### Instrucciones para Agregar un Nuevo Cliente (Paso a Paso)
-
-Cuando vendas una póliza y quieras que salga en la web:
-
-1.  **Edita tu Archivo en GitHub:**
-    Entra a tu GitHub -> `index.html` -> Lápiz ✏️.
-
-2.  **Baja casi al final del código:**
-    Busca la parte que dice: `// --- BASE DE DATOS DE CLIENTES ---`.
-    Verás algo así: `const dataBase = [ ... ];`
-
-3.  **Agrega la línea del cliente:**
-    Justo debajo del último cliente, agrega una línea nueva con este formato:
-    ```javascript
-    { placa: "AA000BB", cedula: "V12345678", nombre: "Nombre del Cliente", vencimiento: "01/01/2026" },
