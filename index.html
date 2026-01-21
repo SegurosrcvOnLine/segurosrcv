@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Proyecto - Index.html</title>
+    <!-- Tailwind CSS para estilos rápidos y modernos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Iconos de Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Estilos personalizados adicionales si son necesarios */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Navegación -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i data-lucide="code-2" class="h-8 w-8 text-indigo-600 mr-2"></i>
+                    <span class="font-bold text-xl tracking-tight text-gray-900">Mi Proyecto</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-500 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Inicio</a>
+                    <a href="#" class="text-gray-500 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Acerca de</a>
+                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                        Contacto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow">
+        <!-- Sección Hero -->
+        <div class="gradient-bg text-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+                    ¡El archivo index.html está listo!
+                </h1>
+                <p class="text-xl md:text-2xl text-indigo-100 mb-8 max-w-2xl mx-auto">
+                    Has configurado correctamente el punto de entrada de tu aplicación web.
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <button onclick="showAlert()" class="bg-white text-indigo-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-bold shadow-lg transition transform hover:-translate-y-1">
+                        Probar JavaScript
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Características (Demo) -->
+        <div class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900">Estado del Sistema</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Tarjeta 1 -->
+                    <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow bg-gray-50">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 text-green-600">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">HTML5 Estructurado</h3>
+                        <p class="text-gray-600">El archivo index.html es la raíz estándar para cualquier sitio web.</p>
+                    </div>
+
+                    <!-- Tarjeta 2 -->
+                    <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow bg-gray-50">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 text-blue-600">
+                            <i data-lucide="palette"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Tailwind CSS</h3>
+                        <p class="text-gray-600">Estilos utilitarios cargados vía CDN para un diseño rápido.</p>
+                    </div>
+
+                    <!-- Tarjeta 3 -->
+                    <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow bg-gray-50">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 text-purple-600">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Interactivo</h3>
+                        <p class="text-gray-600">JavaScript está habilitado y listo para lógica compleja.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Área Interactiva Simple -->
+        <div class="max-w-3xl mx-auto px-4 py-12 text-center" id="demo-area">
+            <p class="text-gray-500 mb-4">Contador de clics (Demo de estado)</p>
+            <div class="inline-flex items-center bg-white rounded-full border shadow-sm p-1">
+                <button onclick="updateCounter(-1)" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600">
+                    <i data-lucide="minus" class="w-4 h-4"></i>
+                </button>
+                <span id="counter" class="mx-6 font-mono text-xl font-bold text-indigo-600">0</span>
+                <button onclick="updateCounter(1)" class="w-10 h-10 rounded-full bg-indigo-100 hover:bg-indigo-200 flex items-center justify-center text-indigo-600">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; 2024 Mi Proyecto Web. Generado por IA.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts de la Aplicación -->
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+
+        // Lógica del contador
+        let count = 0;
+        const counterElement = document.getElementById('counter');
+
+        function updateCounter(change) {
+            count += change;
+            counterElement.innerText = count;
+            
+            // Pequeña animación visual
+            counterElement.style.transform = "scale(1.2)";
+            setTimeout(() => {
+                counterElement.style.transform = "scale(1)";
+            }, 100);
+        }
+
+        // Función de alerta personalizada (evitamos alert() nativo por estética)
+        function showAlert() {
+            const demoArea = document.getElementById('demo-area');
+            const msg = document.createElement('div');
+            msg.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-[-100px]';
+            msg.innerHTML = '<div class="flex items-center"><i data-lucide="check" class="mr-2"></i> ¡JavaScript funcionando!</div>';
+            document.body.appendChild(msg);
+            
+            // Re-renderizar iconos para el nuevo elemento
+            lucide.createIcons();
+
+            // Animar entrada
+            requestAnimationFrame(() => {
+                msg.style.transform = 'translateY(0)';
+            });
+
+            // Remover después de 3 segundos
+            setTimeout(() => {
+                msg.style.transform = 'translateY(-100px)';
+                msg.style.opacity = '0';
+                setTimeout(() => msg.remove(), 500);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
