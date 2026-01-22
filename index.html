@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seguros RCV Online | Tu Póliza al Instante</title>
-    <meta name="description" content="Gestiona tu RCV Legal en minutos. Póliza de Responsabilidad Civil Vehicular válida para el INTT. Entrega inmediata en PDF.">
-    <!-- Tailwind CSS -->
+    <title>Seguros RCV Online | Sistema 7.0</title>
+    <!-- Librerías -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Iconos Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto+Mono:wght@400;500&family=Courier+Prime:wght@700&family=Special+Elite&display=swap" rel="stylesheet">
+    
     <style>
         body { font-family: 'Poppins', sans-serif; }
         .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); }
+        
+        /* Animación Botón WhatsApp */
         .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 50;
+            position: fixed; bottom: 20px; right: 20px; z-index: 50;
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
@@ -26,489 +27,482 @@
             70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
+
+        /* Estilos Tarjetas de Pago */
+        .pay-card { transition: transform 0.2s; }
+        .pay-card:hover { transform: translateY(-5px); }
+        .copy-btn { cursor: pointer; opacity: 0.7; transition: 0.2s; }
+        .copy-btn:hover { opacity: 1; transform: scale(1.1); }
+
+        /* ESTILOS DE IMPRESIÓN (PDF) */
+        @media print {
+            body * { visibility: hidden; }
+            #policy-certificate, #policy-certificate * { visibility: visible; }
+            #policy-certificate { 
+                position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0;
+                box-shadow: none; border: 2px solid #1e3a8a;
+            }
+            #app-public, #app-admin-sidebar, #login-modal { display: none !important; }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-    <!-- Navbar -->
-    <nav class="bg-white shadow-sm fixed w-full z-40 top-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center text-blue-900">
-                    <i data-lucide="shield-check" class="h-8 w-8 mr-2 text-blue-600"></i>
-                    <span class="font-bold text-xl tracking-tight">Seguros RCV Online</span>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#inicio" class="text-gray-600 hover:text-blue-600 font-medium">Inicio</a>
-                    <a href="#precios" class="text-gray-600 hover:text-blue-600 font-medium">Precios</a>
-                    <a href="#beneficios" class="text-gray-600 hover:text-blue-600 font-medium">Beneficios</a>
-                    <a href="#verificacion" class="text-blue-600 font-bold hover:text-blue-800">Verificar Póliza</a>
-                    <a href="#contacto" class="text-gray-600 hover:text-blue-600 font-medium">Contacto</a>
-                </div>
-                <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
-                    <i data-lucide="menu" class="h-6 w-6"></i>
-                </button>
-            </div>
-        </div>
-        <!-- Menú Móvil -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4">
-            <a href="#inicio" class="block py-2 text-gray-600">Inicio</a>
-            <a href="#precios" class="block py-2 text-gray-600">Precios</a>
-            <a href="#verificacion" class="block py-2 text-blue-600 font-bold">Verificar Póliza</a>
-            <a href="#contacto" class="block py-2 text-gray-600 font-bold text-blue-600">Solicitar Ahora</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header id="inicio" class="hero-gradient text-white pt-24 pb-16 lg:pt-32 lg:pb-24 rounded-b-[3rem]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
-                <span class="bg-blue-500 bg-opacity-20 text-blue-100 px-4 py-1 rounded-full text-sm font-semibold mb-4 inline-block">
-                    🔒 Cumple con la Ley de Tránsito
-                </span>
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-                    Tu RCV Legal <br/>en <span class="text-blue-400">5 Minutos</span>
-                </h1>
-                <p class="text-lg text-blue-100 mb-8 max-w-lg mx-auto md:mx-0">
-                    Evita multas y retenciones. Obtén tu póliza de Responsabilidad Civil Vehicular con código QR verificable al instante.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                    <a href="#precios" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-full font-bold text-lg transition shadow-lg text-center flex items-center justify-center">
-                        Ver Precios <i data-lucide="chevron-right" class="ml-2 w-5 h-5"></i>
-                    </a>
-                    <button onclick="contactWhatsapp('Quiero información general')" class="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3 rounded-full font-bold text-lg transition shadow-lg border-2 border-transparent hover:border-blue-200 flex items-center justify-center">
-                        <i data-lucide="message-circle" class="mr-2 w-5 h-5"></i> Chat WhatsApp
+    <!-- ======================================================================== -->
+    <!-- VISTA PÚBLICA (CLIENTES) -->
+    <!-- ======================================================================== -->
+    <div id="app-public">
+        
+        <!-- Navbar -->
+        <nav class="bg-white shadow-sm fixed w-full z-40 top-0">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center text-blue-900">
+                        <i data-lucide="shield-check" class="h-8 w-8 mr-2 text-blue-600"></i>
+                        <span class="font-bold text-xl tracking-tight">Seguros RCV Online</span>
+                    </div>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#inicio" class="text-gray-600 hover:text-blue-600 font-medium">Inicio</a>
+                        <a href="#precios" class="text-gray-600 hover:text-blue-600 font-medium">Precios</a>
+                        <a href="#pagos" class="text-blue-600 font-bold hover:text-blue-800">Métodos de Pago</a>
+                        <a href="#verificacion" class="text-gray-600 hover:text-blue-600 font-medium">Verificar</a>
+                    </div>
+                    <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
                     </button>
                 </div>
             </div>
-            <div class="md:w-1/2 flex justify-center">
-                <div class="relative w-80 h-80 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm shadow-2xl border border-white/20">
-                    <div class="absolute inset-0 bg-blue-500/20 rounded-full animate-ping opacity-20"></div>
-                    <i data-lucide="car-front" class="w-40 h-40 text-white drop-shadow-lg"></i>
-                    <div class="absolute -bottom-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center text-sm font-bold">
-                        <i data-lucide="check-circle-2" class="w-4 h-4 mr-2"></i> INTT Verificado
+            <!-- Menú Móvil -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4">
+                <a href="#precios" class="block py-2 text-gray-600">Precios</a>
+                <a href="#pagos" class="block py-2 text-blue-600 font-bold">Pagar Ahora</a>
+                <a href="#verificacion" class="block py-2 text-gray-600">Verificar Póliza</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header id="inicio" class="hero-gradient text-white pt-24 pb-16 lg:pt-32 lg:pb-24 rounded-b-[3rem]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+                    <span class="bg-blue-500 bg-opacity-20 text-blue-100 px-4 py-1 rounded-full text-sm font-semibold mb-4 inline-block">
+                        🔒 Cumple con la Ley de Tránsito
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+                        Tu RCV Legal <br/>en <span class="text-blue-400">5 Minutos</span>
+                    </h1>
+                    <p class="text-lg text-blue-100 mb-8 max-w-lg mx-auto md:mx-0">
+                        Evita multas y retenciones. Póliza con Código QR (Sistema 5.0) verificable al instante.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#precios" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-full font-bold text-lg transition shadow-lg text-center flex items-center justify-center">
+                            Ver Planes <i data-lucide="chevron-right" class="ml-2 w-5 h-5"></i>
+                        </a>
+                        <button onclick="contactWhatsapp('Quiero información general')" class="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3 rounded-full font-bold text-lg transition shadow-lg border-2 border-transparent hover:border-blue-200 flex items-center justify-center">
+                            <i data-lucide="message-circle" class="mr-2 w-5 h-5"></i> Chat WhatsApp
+                        </button>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative w-80 h-80 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm shadow-2xl border border-white/20">
+                        <i data-lucide="car-front" class="w-40 h-40 text-white drop-shadow-lg"></i>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Sección de Precios -->
-    <section id="precios" class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Planes Disponibles</h2>
-                <p class="text-gray-500 text-lg">Selecciona tu aseguradora y cobertura preferida.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Plan Moto -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 bg-gray-100 text-gray-600 px-4 py-1 rounded-bl-xl font-bold text-xs">ECONÓMICO</div>
-                    <div class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 text-blue-600 group-hover:scale-110 transition">
-                        <i data-lucide="bike" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900">Motos</h3>
-                    <p class="text-gray-500 mb-4">Uso particular y trabajo</p>
+        <!-- Precios -->
+        <section id="precios" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-12">Nuestros Planes</h2>
+                <div class="flex flex-wrap justify-center gap-8">
                     
-                    <!-- Precios Moto Desglosados -->
-                    <div class="space-y-4 mb-6">
-                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
-                            <span class="text-xs font-bold text-blue-800 uppercase block mb-2 border-b border-blue-200 pb-1">Multiseguros</span>
-                            <div class="flex justify-between items-center text-sm mb-1">
-                                <span class="text-gray-600">Básico:</span>
-                                <span class="font-bold text-blue-900 text-lg">$6</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-600">Plus:</span>
-                                <span class="font-bold text-blue-900 text-lg">$8</span>
-                            </div>
+                    <!-- Tarjeta Moto -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 w-full md:w-80 hover:shadow-xl transition">
+                        <div class="text-center mb-4"><i class="fas fa-motorcycle text-4xl text-blue-900"></i><h3 class="text-xl font-bold mt-2">Motos</h3></div>
+                        <div class="bg-green-50 p-3 rounded mb-3 border border-green-100">
+                            <div class="font-bold text-green-800 text-xs mb-1">MULTISEGUROS (Básico)</div>
+                            <div class="flex justify-between text-sm"><span>Económico</span><b>$6</b></div>
+                            <div class="flex justify-between text-sm"><span>Plus</span><b>$8</b></div>
                         </div>
-                        <div class="bg-purple-50 p-3 rounded-lg border border-purple-100">
-                            <span class="text-xs font-bold text-purple-800 uppercase block mb-2 border-b border-purple-200 pb-1">Conseres</span>
-                            <div class="flex justify-between items-center text-sm mb-1">
-                                <span class="text-gray-600">Estándar:</span>
-                                <span class="font-bold text-purple-900 text-lg">$10</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-600">Premium:</span>
-                                <span class="font-bold text-purple-900 text-lg">$15</span>
-                            </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-100 relative">
+                            <div class="absolute -top-2 -right-2 bg-blue-900 text-white text-[9px] px-2 py-1 rounded font-bold">CON QR 📲</div>
+                            <div class="font-bold text-blue-800 text-xs mb-1">CONSERES (Premium)</div>
+                            <div class="flex justify-between text-sm"><span>Estándar</span><b>$10</b></div>
+                            <div class="flex justify-between text-sm"><span>Full</span><b>$15</b></div>
                         </div>
+                        <button onclick="contactWhatsapp('Me interesa RCV Moto')" class="w-full mt-4 bg-gray-900 text-white py-2 rounded-lg font-bold hover:bg-gray-800">Solicitar</button>
                     </div>
 
-                    <ul class="space-y-2 mb-8 text-gray-600 text-sm">
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i> Responsabilidad Civil</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i> Defensa Penal</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i> PDF Inmediato</li>
-                    </ul>
-                    <button onclick="contactWhatsapp('Me interesa RCV para Moto. ¿Qué opciones tienen?')" class="w-full bg-gray-900 text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition">Solicitar Moto</button>
-                </div>
-
-                <!-- Plan Vehículo -->
-                <div class="bg-white p-8 rounded-2xl shadow-2xl border-2 border-blue-600 relative transform md:-translate-y-4">
-                    <div class="absolute top-0 inset-x-0 bg-blue-600 text-white text-center py-1 text-sm font-bold tracking-wide uppercase">Más Vendido</div>
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600 mt-4">
-                        <i data-lucide="car" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900">Vehículos</h3>
-                    <p class="text-gray-500 mb-4">Livianos y Paseo</p>
-
-                    <!-- Precios Carro Desglosados -->
-                    <div class="space-y-4 mb-6">
-                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
-                            <span class="text-xs font-bold text-blue-800 uppercase block mb-2 border-b border-blue-200 pb-1">Multiseguros</span>
-                            <div class="flex justify-between items-center text-sm mb-1">
-                                <span class="text-gray-600">Básico:</span>
-                                <span class="font-bold text-blue-900 text-lg">$10</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-600">Plus:</span>
-                                <span class="font-bold text-blue-900 text-lg">$12</span>
-                            </div>
+                    <!-- Tarjeta Carro -->
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-blue-600 w-full md:w-80 transform md:-translate-y-4">
+                        <div class="text-center mb-4"><i class="fas fa-car text-4xl text-blue-600"></i><h3 class="text-xl font-bold mt-2">Vehículos</h3></div>
+                        <div class="bg-green-50 p-3 rounded mb-3 border border-green-100">
+                            <div class="font-bold text-green-800 text-xs mb-1">MULTISEGUROS (Básico)</div>
+                            <div class="flex justify-between text-sm"><span>Económico</span><b>$10</b></div>
+                            <div class="flex justify-between text-sm"><span>Plus</span><b>$12</b></div>
                         </div>
-                        <div class="bg-purple-50 p-3 rounded-lg border border-purple-100">
-                            <span class="text-xs font-bold text-purple-800 uppercase block mb-2 border-b border-purple-200 pb-1">Conseres</span>
-                            <div class="flex justify-between items-center text-sm mb-1">
-                                <span class="text-gray-600">Estándar:</span>
-                                <span class="font-bold text-purple-900 text-lg">$16</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-600">Premium:</span>
-                                <span class="font-bold text-purple-900 text-lg">$20</span>
-                            </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-100 relative">
+                            <div class="absolute -top-2 -right-2 bg-blue-900 text-white text-[9px] px-2 py-1 rounded font-bold">CON QR 📲</div>
+                            <div class="font-bold text-blue-800 text-xs mb-1">CONSERES (Premium)</div>
+                            <div class="flex justify-between text-sm"><span>Estándar</span><b>$15</b></div>
+                            <div class="flex justify-between text-sm"><span>Full</span><b>$20</b></div>
                         </div>
-                    </div>
-
-                    <ul class="space-y-2 mb-8 text-gray-600 font-medium">
-                        <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-blue-600 mr-2"></i> Cobertura Amplia</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-blue-600 mr-2"></i> Exceso de Límites</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-blue-600 mr-2"></i> Código QR Verificable</li>
-                    </ul>
-                    <button onclick="contactWhatsapp('Me interesa RCV para Vehículo. Quiero ver detalles')" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg text-lg">Solicitar Ahora</button>
-                </div>
-
-                <!-- Plan Pesado -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition group">
-                    <div class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 text-blue-600 group-hover:scale-110 transition">
-                        <i data-lucide="truck" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900">Carga/Pesado</h3>
-                    <p class="text-gray-500 mb-6">Camiones y Flotas</p>
-                    <div class="text-4xl font-extrabold text-blue-900 mb-2">Cotizar<span class="text-sm text-gray-400 font-normal"></span></div>
-                    <p class="text-sm text-gray-500 mb-4">Planes a medida para flotas y carga pesada.</p>
-                    <ul class="space-y-3 mb-8 text-gray-600 text-sm">
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i> RCV Carga</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i> Cobertura Nacional</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i> Descuentos por Flota</li>
-                    </ul>
-                    <button onclick="contactWhatsapp('Me interesa cotizar RCV para Carga Pesada')" class="w-full bg-gray-900 text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition">Cotizar Flota</button>
-                </div>
-            </div>
-            
-            <p class="text-center text-xs text-gray-400 mt-8">* Precios en Dólares ($). Pagos en Bs a tasa BCV del día.</p>
-        </div>
-    </section>
-
-    <!-- Beneficios -->
-    <section id="beneficios" class="bg-white py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Gestión Segura" class="rounded-2xl shadow-2xl w-full object-cover h-96">
-                </div>
-                <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">¿Por qué elegirnos?</h2>
-                    <div class="space-y-8">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
-                                    <i data-lucide="smartphone" class="h-6 w-6"></i>
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-medium text-gray-900">100% Digital</h3>
-                                <p class="mt-2 text-gray-500">Sin papeleos ni oficinas. Envías tus datos por WhatsApp y recibes tu póliza en PDF.</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
-                                    <i data-lucide="file-check-2" class="h-6 w-6"></i>
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-medium text-gray-900">Verificable por Autoridades</h3>
-                                <p class="mt-2 text-gray-500">Nuestras pólizas incluyen código QR real para verificación inmediata en alcabalas.</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
-                                    <i data-lucide="clock" class="h-6 w-6"></i>
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-medium text-gray-900">Emisión en Minutos</h3>
-                                <p class="mt-2 text-gray-500">Una vez confirmado el pago, tu RCV llega a tu correo o teléfono en menos de 10 minutos.</p>
-                            </div>
-                        </div>
+                        <button onclick="contactWhatsapp('Me interesa RCV Carro')" class="w-full mt-4 bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 shadow-lg">Solicitar Ahora</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Nueva Sección: Verificación Sistema 5.0 (INTEGRADA) -->
-    <section id="verificacion" class="bg-blue-900 py-16 text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold mb-4">Verifica tu Póliza (Sistema 5.0)</h2>
-            <p class="text-blue-200 mb-8 max-w-2xl mx-auto">
-                Consulta en tiempo real el estatus de tu RCV ante las autoridades.
-            </p>
-            
-            <!-- Buscador -->
-            <div class="bg-white/10 p-6 md:p-8 rounded-2xl backdrop-blur-md shadow-2xl border border-white/20">
-                <div class="flex flex-col md:flex-row gap-3">
-                    <input type="text" id="searchInput" 
-                        class="w-full px-5 py-4 rounded-xl text-gray-900 text-lg font-medium focus:outline-none focus:ring-4 focus:ring-blue-500 placeholder-gray-400" 
-                        placeholder="Ingrese Placa o Cédula (Ej: AB123CD)"
-                        onkeyup="if(event.key === 'Enter') verifyPolicy()">
+        <!-- SECCIÓN DE PAGOS -->
+        <section id="pagos" class="bg-slate-100 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-2">Métodos de Pago</h2>
+                <p class="text-center text-slate-500 mb-10">Aceptamos múltiples formas de pago para tu comodidad.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     
-                    <button onclick="verifyPolicy()" 
-                        class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition flex items-center justify-center shadow-lg transform active:scale-95">
-                        <i data-lucide="search" class="w-6 h-6 mr-2"></i> Consultar
+                    <!-- PAGO MÓVIL -->
+                    <div class="pay-card bg-white p-6 rounded-xl shadow border border-slate-200 text-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5323/5323577.png" class="w-12 h-12 mx-auto mb-3" alt="Pago Móvil">
+                        <h3 class="font-bold text-slate-700 mb-4">Pago Móvil</h3>
+                        <div class="text-left text-sm space-y-3">
+                            <div>
+                                <span class="text-xs text-gray-400 block">Banco</span>
+                                <span class="font-bold text-slate-800">PROVINCIAL (0108)</span>
+                            </div>
+                            <div>
+                                <span class="text-xs text-gray-400 block">Cédula</span>
+                                <div class="flex justify-between items-center bg-gray-50 p-2 rounded border">
+                                    <span id="pm-cedula">15505806</span>
+                                    <i data-lucide="copy" class="w-4 h-4 copy-btn text-blue-500" onclick="copiar('pm-cedula')"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="text-xs text-gray-400 block">Teléfono</span>
+                                <div class="flex justify-between items-center bg-gray-50 p-2 rounded border">
+                                    <span id="pm-telf">04127008160</span>
+                                    <i data-lucide="copy" class="w-4 h-4 copy-btn text-blue-500" onclick="copiar('pm-telf')"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BINANCE -->
+                    <div class="pay-card bg-white p-6 rounded-xl shadow border border-yellow-200 text-center relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-yellow-400"></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Binance_Logo.svg" class="w-12 h-12 mx-auto mb-3" alt="Binance">
+                        <h3 class="font-bold text-slate-700 mb-4">Binance Pay</h3>
+                        <div class="text-left text-sm space-y-3">
+                            <div>
+                                <span class="text-xs text-gray-400 block">Pay ID</span>
+                                <div class="flex justify-between items-center bg-yellow-50 p-2 rounded border border-yellow-100">
+                                    <span id="binance-id" class="text-sm font-bold truncate">439563645</span>
+                                    <i data-lucide="copy" class="w-4 h-4 copy-btn text-yellow-600" onclick="copiar('binance-id')"></i>
+                                </div>
+                            </div>
+                            <div class="text-center mt-2">
+                                <span class="text-[10px] text-gray-400 bg-gray-100 px-2 py-1 rounded">USDT</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PAYPAL -->
+                    <div class="pay-card bg-white p-6 rounded-xl shadow border border-blue-100 text-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="w-20 h-12 mx-auto mb-3 object-contain" alt="PayPal">
+                        <h3 class="font-bold text-slate-700 mb-4">PayPal</h3>
+                        <div class="text-left text-sm space-y-3">
+                            <div>
+                                <span class="text-xs text-gray-400 block">Correo</span>
+                                <div class="flex justify-between items-center bg-blue-50 p-2 rounded border border-blue-100">
+                                    <!-- Usamos un div con overflow para el correo largo -->
+                                    <div id="paypal-mail" class="text-[10px] truncate w-32" title="rossvindayanna0207@gmail.com">rossvindayanna0207@gmail.com</div>
+                                    <i data-lucide="copy" class="w-4 h-4 copy-btn text-blue-500" onclick="copiar('paypal-mail')"></i>
+                                </div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 text-center mt-2">* Recuerda agregar la comisión.</p>
+                        </div>
+                    </div>
+
+                    <!-- ZELLE / EFECTIVO -->
+                    <div class="pay-card bg-white p-6 rounded-xl shadow border border-green-100 text-center">
+                        <div class="flex justify-center gap-2 mb-3">
+                            <i class="fas fa-money-bill-wave text-green-600 text-3xl"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-700 mb-4">Zelle / Efectivo</h3>
+                        <div class="text-sm text-gray-600 space-y-2">
+                            <p>Para pagos en divisas efectivo o Zelle, por favor contactar directamente para coordinar.</p>
+                            <button onclick="contactWhatsapp('Quiero pagar con Zelle/Efectivo')" class="w-full bg-green-600 text-white py-2 rounded font-bold text-xs mt-2 hover:bg-green-700">Coordinar Pago</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="text-center mt-10">
+                    <button onclick="contactWhatsapp('Ya realicé el pago, aquí está el comprobante')" class="bg-blue-900 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-blue-800 transition transform hover:scale-105 flex items-center justify-center mx-auto">
+                        <i data-lucide="send" class="mr-2"></i> REPORTAR PAGO AL WHATSAPP
                     </button>
                 </div>
+            </div>
+        </section>
 
-                <!-- Resultados de Búsqueda -->
-                <div id="searchResult" class="mt-6 hidden transition-all duration-300">
-                    <!-- El contenido se llena con JS -->
-                </div>
+        <!-- Verificación -->
+        <section id="verificacion" class="bg-blue-900 py-16 text-white text-center">
+            <h2 class="text-2xl font-bold mb-4">Verifica tu Póliza (Sistema 5.0)</h2>
+            <div class="max-w-md mx-auto bg-white/10 p-6 rounded-2xl border border-white/20">
+                <input type="text" id="searchInput" class="w-full px-4 py-3 rounded text-gray-900 mb-2" placeholder="Ingrese Placa o Cédula" onkeyup="if(event.key === 'Enter') verifyPolicy()">
+                <button onclick="verifyPolicy()" class="w-full bg-green-500 text-white py-2 rounded font-bold">Consultar</button>
+                <div id="searchResult" class="mt-4 hidden text-left"></div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-slate-950 text-slate-400 py-8 border-t border-slate-900 relative">
+            <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+                <p class="text-xs">© 2024 Seguros RCV Online.</p>
+                <!-- BOTÓN SECRETO ADMIN -->
+                <button onclick="openLoginModal()" class="text-slate-800 hover:text-slate-600"><i data-lucide="lock" class="w-4 h-4"></i></button>
+            </div>
+        </footer>
+
+        <a href="https://wa.me/584127008160?text=Hola" target="_blank" class="whatsapp-float bg-green-500 text-white p-4 rounded-full shadow-xl"><i data-lucide="message-circle"></i></a>
+    </div>
+
+    <!-- ======================================================================== -->
+    <!-- PANEL ADMINISTRATIVO (OCULTO) -->
+    <!-- ======================================================================== -->
+    <div id="app-admin" class="hidden h-screen bg-gray-100 flex flex-col md:flex-row">
+        <!-- Panel Izquierdo -->
+        <div id="app-admin-sidebar" class="w-full md:w-1/3 bg-white p-6 overflow-y-auto border-r shadow-xl z-10">
+            <div class="flex justify-between mb-4">
+                <h2 class="font-bold text-blue-900">ADMIN RCV 7.0</h2>
+                <button onclick="location.reload()" class="text-red-500 text-xs font-bold">SALIR</button>
             </div>
             
-            <p class="text-xs text-blue-300 mt-4 opacity-70">
-                Base de datos actualizada al instante. Si su póliza es reciente, espere 10 min.
-            </p>
-        </div>
-    </section>
+            <form id="rcvForm" oninput="updatePreview()" class="space-y-3">
+                <select id="sys_selector" class="w-full p-2 border rounded bg-gray-50 font-bold mb-2" onchange="cambiarSistema()">
+                    <option value="conseres">🔵 CONSERES (QR)</option>
+                    <option value="multiseguros">🟢 MULTISEGUROS</option>
+                </select>
 
-    <!-- Formulario / Contacto -->
-    <section id="contacto" class="bg-slate-50 py-20">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold text-gray-900">Solicita tu RCV Aquí</h2>
-                    <p class="text-gray-600 mt-2">Completa el formulario y un asesor te contactará vía WhatsApp para finalizar.</p>
-                </div>
+                <!-- Datos Cliente -->
+                <input type="text" id="admin_nombre" class="w-full p-2 border rounded text-xs" placeholder="Nombre">
+                <input type="text" id="admin_cedula" class="w-full p-2 border rounded text-xs" placeholder="Cédula">
+                <input type="text" id="admin_telefono" class="w-full p-2 border rounded text-xs" placeholder="Teléfono">
                 
-                <form onsubmit="handleFormSubmit(event)" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Nombre Completo</label>
-                            <input type="text" id="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Juan Pérez">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Teléfono (WhatsApp)</label>
-                            <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="0412-1234567">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Selecciona tu Plan Exacto:</label>
-                        <select id="vehicle" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white">
-                            <optgroup label="MOTOS - Multiseguros">
-                                <option value="Moto Multiseguros Básico ($6)">Moto Multiseguros Básico ($6)</option>
-                                <option value="Moto Multiseguros Plus ($8)">Moto Multiseguros Plus ($8)</option>
-                            </optgroup>
-                            <optgroup label="MOTOS - Conseres">
-                                <option value="Moto Conseres Estándar ($10)">Moto Conseres Estándar ($10)</option>
-                                <option value="Moto Conseres Premium ($15)">Moto Conseres Premium ($15)</option>
-                            </optgroup>
-                            <optgroup label="VEHÍCULOS - Multiseguros">
-                                <option value="Vehículo Multiseguros Básico ($10)">Vehículo Multiseguros Básico ($10)</option>
-                                <option value="Vehículo Multiseguros Plus ($12)">Vehículo Multiseguros Plus ($12)</option>
-                            </optgroup>
-                            <optgroup label="VEHÍCULOS - Conseres">
-                                <option value="Vehículo Conseres Estándar ($16)">Vehículo Conseres Estándar ($16)</option>
-                                <option value="Vehículo Conseres Premium ($20)">Vehículo Conseres Premium ($20)</option>
-                            </optgroup>
-                            <optgroup label="CARGA PESADA">
-                                <option value="Pesado/Camión">Carga Pesada / Flota (Cotizar)</option>
-                            </optgroup>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="w-full bg-green-600 text-white font-bold py-4 rounded-lg hover:bg-green-700 transition transform hover:-translate-y-1 shadow-md flex items-center justify-center text-lg">
-                        <i data-lucide="send" class="w-5 h-5 mr-2"></i> Enviar Solicitud
-                    </button>
-                    <p class="text-xs text-center text-gray-400 mt-4">Tus datos están protegidos. Solo se usarán para gestionar tu póliza.</p>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-6 md:mb-0 text-center md:text-left">
-                <div class="flex items-center justify-center md:justify-start mb-2">
-                    <i data-lucide="shield" class="h-6 w-6 text-blue-500 mr-2"></i>
-                    <span class="text-white font-bold text-lg">Seguros RCV Online</span>
+                <!-- Datos Vehículo -->
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="admin_placa" class="w-full p-2 border rounded text-xs uppercase" placeholder="Placa">
+                    <input type="text" id="admin_marca" class="w-full p-2 border rounded text-xs" placeholder="Marca">
+                    <input type="text" id="admin_modelo" class="w-full p-2 border rounded text-xs" placeholder="Modelo">
+                    <input type="number" id="admin_anio" class="w-full p-2 border rounded text-xs" placeholder="Año">
+                    <input type="text" id="admin_color" class="w-full p-2 border rounded text-xs" placeholder="Color">
+                    <input type="text" id="admin_serial" class="w-full p-2 border rounded text-xs" placeholder="Serial">
                 </div>
-                <p class="text-sm">Protección y responsabilidad en cada kilómetro.</p>
-            </div>
-            <div class="flex space-x-6 mb-6 md:mb-0">
-                <a href="#" class="hover:text-white transition"><i data-lucide="instagram"></i></a>
-                <a href="#" class="hover:text-white transition"><i data-lucide="facebook"></i></a>
-                <a href="#" class="hover:text-white transition"><i data-lucide="twitter"></i></a>
-            </div>
-            <div class="text-sm text-center md:text-right">
-                <p>&copy; 2024 Seguros RCV Online.</p>
-                <p>Todos los derechos reservados.</p>
+
+                <!-- Plan -->
+                <select id="admin_plan" class="w-full p-2 border rounded text-xs">
+                    <optgroup label="MULTISEGUROS">
+                        <option value="Moto Básico ($6)">Moto ($6)</option>
+                        <option value="Moto Plus ($8)">Moto ($8)</option>
+                        <option value="Carro Básico ($10)">Carro ($10)</option>
+                        <option value="Carro Plus ($12)">Carro ($12)</option>
+                    </optgroup>
+                    <optgroup label="CONSERES">
+                        <option value="Moto Estándar ($10)">Moto ($10)</option>
+                        <option value="Moto Premium ($15)">Moto ($15)</option>
+                        <option value="Carro Estándar ($15)">Carro ($15)</option>
+                        <option value="Carro Premium ($20)">Carro ($20)</option>
+                    </optgroup>
+                </select>
+                
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="date" id="admin_fecha_emision" class="w-full p-2 border rounded text-xs">
+                    <input type="date" id="admin_fecha_vencimiento" class="w-full p-2 border rounded text-xs">
+                </div>
+
+                <button type="button" onclick="window.print()" class="w-full bg-blue-900 text-white py-2 rounded font-bold text-sm">IMPRIMIR PDF</button>
+
+                <!-- Caja Negra Generadora -->
+                <div class="bg-black p-2 rounded mt-2">
+                    <label class="text-[10px] text-green-400 font-bold">CÓDIGO BASE DE DATOS:</label>
+                    <textarea id="dbCode" class="w-full bg-gray-900 text-green-500 text-[10px] p-1 font-mono h-16 border-none resize-none" readonly onclick="this.select()"></textarea>
+                    <button type="button" onclick="copyToClipboard()" class="w-full bg-green-600 text-white text-[10px] py-1 mt-1 rounded">COPIAR</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Vista Previa PDF -->
+        <div class="w-full md:w-2/3 bg-gray-500 p-4 flex justify-center overflow-y-auto">
+            <div id="policy-certificate" class="bg-white w-[210mm] min-h-[297mm] p-10 shadow-2xl relative text-gray-800">
+                <!-- Marco -->
+                <div class="absolute inset-4 border-4 border-double border-gray-200 pointer-events-none"></div>
+                <!-- Cabecera -->
+                <div class="flex justify-between items-start border-b-2 border-blue-900 pb-4 mb-6">
+                    <div>
+                        <h1 class="text-3xl font-bold text-blue-900 uppercase">Certificado RCV</h1>
+                        <p class="text-sm font-bold text-gray-500" id="pdf_empresa">Servicios Internacionales CONSERES</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm font-bold text-red-600">PÓLIZA N° <span id="prev_poliza">2024-001</span></div>
+                        <div class="text-xs text-gray-500">Sistema 5.0</div>
+                    </div>
+                </div>
+                <!-- Cuerpo -->
+                <div class="grid grid-cols-2 gap-8 mb-6 text-sm">
+                    <div>
+                        <h3 class="bg-blue-100 text-blue-900 font-bold px-2 py-1 mb-2">ASEGURADO</h3>
+                        <p><b>Nombre:</b> <span id="prev_nombre" class="uppercase">---</span></p>
+                        <p><b>Cédula:</b> <span id="prev_cedula" class="uppercase">---</span></p>
+                        <p><b>Teléfono:</b> <span id="prev_telefono">---</span></p>
+                    </div>
+                    <div>
+                        <h3 class="bg-blue-100 text-blue-900 font-bold px-2 py-1 mb-2">VIGENCIA</h3>
+                        <p><b>Desde:</b> <span id="prev_desde">---</span></p>
+                        <p><b>Hasta:</b> <span id="prev_hasta">---</span></p>
+                        <p><b>Estado:</b> <span class="text-green-600 font-bold">ACTIVO / PAGADO</span></p>
+                    </div>
+                </div>
+                <!-- Vehículo -->
+                <div class="mb-6">
+                    <h3 class="bg-blue-900 text-white font-bold px-2 py-1 text-sm text-center mb-2">VEHÍCULO</h3>
+                    <table class="w-full text-sm border border-gray-300 text-center">
+                        <tr class="bg-gray-100 font-bold"><td>PLACA</td><td>MARCA</td><td>MODELO</td><td>AÑO</td><td>COLOR</td></tr>
+                        <tr class="uppercase">
+                            <td class="p-2 border font-bold text-lg" id="prev_placa">---</td>
+                            <td class="p-2 border" id="prev_marca">---</td>
+                            <td class="p-2 border" id="prev_modelo">---</td>
+                            <td class="p-2 border" id="prev_anio">---</td>
+                            <td class="p-2 border" id="prev_color">---</td>
+                        </tr>
+                    </table>
+                    <p class="text-xs mt-2 ml-1">Serial: <span id="prev_serial" class="uppercase font-mono">---</span></p>
+                </div>
+                <!-- QR -->
+                <div class="border-t-2 border-gray-300 pt-6 flex justify-between items-end">
+                    <div class="text-xs text-gray-500 w-2/3">
+                        <p>Certificado conforme a la Ley de Transporte Terrestre. Validez sujeta al pago de prima.</p>
+                        <p class="font-bold mt-2 text-black">EMERGENCIAS: 0412-7008160</p>
+                    </div>
+                    <div class="w-1/3 flex flex-col items-center">
+                        <div id="qrcode" class="border p-1 bg-white mb-1"></div>
+                        <p class="text-[8px] font-bold text-blue-900 uppercase">Escanear para Verificar</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <!-- Botón Flotante de WhatsApp -->
-    <a href="https://wa.me/584127008160?text=Hola,%20quiero%20renovar%20mi%20RCV" target="_blank" class="whatsapp-float bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition flex items-center justify-center">
-        <i data-lucide="message-circle" class="w-8 h-8"></i>
-    </a>
-
-    <!-- Modal de Confirmación -->
-    <div id="successModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm px-4">
-        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
-            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-500">
-                <i data-lucide="check-circle-2" class="w-10 h-10"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-2">¡Solicitud Recibida!</h3>
-            <p class="text-gray-600 mb-8">Te estamos redirigiendo a WhatsApp para completar tu emisión con un asesor.</p>
-            <button onclick="closeModal()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">
-                Entendido
-            </button>
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center">
+        <div class="bg-white p-8 rounded shadow-lg">
+            <h2 class="font-bold mb-4">Acceso Admin</h2>
+            <input type="password" id="admin-pass" class="border p-2 w-full mb-4" placeholder="Contraseña">
+            <button onclick="checkLogin()" class="bg-blue-900 text-white px-4 py-2 rounded w-full">Entrar</button>
         </div>
     </div>
 
     <script>
-        // Inicializar Iconos
         lucide.createIcons();
 
-        // -----------------------------------------------------
-        //  BASE DE DATOS DE CLIENTES (PARA AGREGAR NUEVOS)
-        // -----------------------------------------------------
-        // IMPORTANTE: Al ser una página web estática (sin servidor privado),
-        // NO HAY CONEXIÓN AUTOMÁTICA con otros programas de tu computadora.
-        // Para que un cliente salga "Verificado", debes agregarlo aquí MANUALMENTE.
-        
-        // INSTRUCCIONES:
-        // 1. Copia la línea de ejemplo.
-        // 2. Pégala abajo y cambia los datos.
-        // Formato: { placa: "PLACA", cedula: "CEDULA", nombre: "NOMBRE", vencimiento: "FECHA" },
-        
+        // 1. BASE DE DATOS (CLIENTES PÚBLICOS)
         const dataBase = [
-            // Cliente de Prueba (Puedes borrarlo o editarlo)
             { placa: "AB123CD", cedula: "V123456", nombre: "Usuario Prueba", vencimiento: "31/12/2025" },
+            // PEGA AQUÍ LOS CÓDIGOS NUEVOS
             
-            // AGREGAR NUEVOS CLIENTES AQUÍ ABAJO:
-            { placa: "AC555XX", cedula: "V20500100", nombre: "Pedro Pérez", vencimiento: "01/05/2025" },
-            { placa: "AA000BB", cedula: "V15000000", nombre: "Maria Rodriguez", vencimiento: "15/08/2025" }
-            
-            // No borres este corchete de abajo:
         ];
 
+        // 2. LÓGICA DE PAGOS (COPIAR DATOS)
+        function copiar(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Dato copiado: " + text);
+        }
+
+        // 3. LÓGICA VERIFICACIÓN PÚBLICA
         function verifyPolicy() {
             const input = document.getElementById('searchInput').value.toUpperCase().trim();
             const resultDiv = document.getElementById('searchResult');
-            
-            // Animación de carga
             resultDiv.classList.remove('hidden');
-            resultDiv.innerHTML = '<div class="text-white animate-pulse">Buscando en base de datos nacional...</div>';
-
-            setTimeout(() => {
-                // Buscar coincidencia (por placa O por cédula)
-                const found = dataBase.find(item => item.placa === input || item.cedula === input);
-
-                if (found) {
-                    // SI SE ENCUENTRA
-                    resultDiv.innerHTML = `
-                        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-r shadow-md text-left">
-                            <div class="flex items-center mb-2">
-                                <i data-lucide="check-circle" class="w-6 h-6 mr-2 text-green-600"></i>
-                                <p class="font-bold text-lg">PÓLIZA ACTIVA (SISTEMA 5.0)</p>
-                            </div>
-                            <p class="text-sm"><strong>Asegurado:</strong> ${found.nombre}</p>
-                            <p class="text-sm"><strong>Placa:</strong> ${found.placa}</p>
-                            <p class="text-sm"><strong>Cédula:</strong> ${found.cedula}</p>
-                            <p class="text-sm"><strong>Vencimiento:</strong> ${found.vencimiento}</p>
-                            <p class="mt-2 text-xs text-green-600 bg-green-200 inline-block px-2 py-1 rounded">✅ Verificado por INTT</p>
-                        </div>
-                    `;
-                    lucide.createIcons();
-                } else {
-                    // NO SE ENCUENTRA
-                    resultDiv.innerHTML = `
-                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-r shadow-md text-left">
-                            <div class="flex items-center mb-2">
-                                <i data-lucide="alert-circle" class="w-6 h-6 mr-2 text-red-600"></i>
-                                <p class="font-bold text-lg">NO ENCONTRADO / INACTIVO</p>
-                            </div>
-                            <p class="text-sm">La placa o cédula <strong>${input}</strong> no aparece activa en nuestra base de datos actual.</p>
-                            <p class="text-sm mt-2">Si renovó hoy, espere 24h o contacte a soporte.</p>
-                        </div>
-                    `;
-                    lucide.createIcons();
-                }
-            }, 800);
+            
+            const found = dataBase.find(item => item.placa === input || item.cedula === input);
+            if (found) {
+                resultDiv.innerHTML = `<div class="bg-green-100 p-4 rounded text-green-800 border border-green-300"><p class="font-bold">✅ ACTIVO</p><p class="text-sm">${found.nombre}</p><p class="text-xs">Vence: ${found.vencimiento}</p></div>`;
+            } else {
+                resultDiv.innerHTML = `<div class="bg-red-100 p-4 rounded text-red-800 border border-red-300"><p class="font-bold">❌ NO ENCONTRADO</p></div>`;
+            }
         }
 
-        // Toggle Menú Móvil
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        // 4. LÓGICA ADMIN
+        function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
+        function checkLogin() {
+            if (document.getElementById('admin-pass').value === "admin2024") {
+                document.getElementById('app-public').classList.add('hidden');
+                document.getElementById('app-admin').classList.remove('hidden');
+                document.getElementById('login-modal').classList.add('hidden');
+                updatePreview();
+            } else { alert("Error"); }
         }
 
-        // Función para redirigir a WhatsApp
-        function contactWhatsapp(message) {
-            const phone = "584127008160"; 
-            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
+        function updatePreview() {
+            // Actualizar campos PDF
+            const fields = ['nombre', 'cedula', 'telefono', 'placa', 'marca', 'modelo', 'anio', 'color', 'serial'];
+            fields.forEach(f => {
+                const val = document.getElementById('admin_' + f).value;
+                const el = document.getElementById('prev_' + f);
+                if (el) el.innerText = val || '---';
+            });
+
+            // Fechas
+            const emision = document.getElementById('admin_fecha_emision').value;
+            const vence = document.getElementById('admin_fecha_vencimiento').value;
+            if(emision) document.getElementById('prev_desde').innerText = emision.split('-').reverse().join('/');
+            if(vence) document.getElementById('prev_hasta').innerText = vence.split('-').reverse().join('/');
+
+            // QR
+            const qrContainer = document.getElementById("qrcode");
+            qrContainer.innerHTML = "";
+            // El QR lleva a la web pública para verificar
+            new QRCode(qrContainer, { text: "https://segurosrcvonline.github.io/segurosrcv/", width: 70, height: 70 });
+
+            // Código GitHub
+            const p = document.getElementById('admin_placa').value.toUpperCase();
+            const c = document.getElementById('admin_cedula').value.toUpperCase();
+            const n = document.getElementById('admin_nombre').value.toUpperCase();
+            const vFormatted = vence ? vence.split('-').reverse().join('/') : '---';
+            
+            if(p) {
+                document.getElementById('dbCode').value = `{ placa: "${p}", cedula: "${c}", nombre: "${n}", vencimiento: "${vFormatted}" },`;
+            }
         }
 
-        // Manejo del Formulario
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const vehicle = document.getElementById('vehicle').value;
-            
-            const modal = document.getElementById('successModal');
-            const modalContent = document.getElementById('modalContent');
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-
-            setTimeout(() => {
-                const message = `Hola, mi nombre es ${name}. Quiero solicitar: ${vehicle}.`;
-                contactWhatsapp(message);
-                closeModal();
-            }, 2500);
+        function copyToClipboard() {
+            const copyText = document.getElementById("dbCode");
+            copyText.select();
+            navigator.clipboard.writeText(copyText.value);
+            alert("Código copiado. Pégalo en GitHub.");
         }
 
-        function closeModal() {
-            const modal = document.getElementById('successModal');
-            const modalContent = document.getElementById('modalContent');
-            
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-            
-            setTimeout(() => {
-                modal.classList.remove('flex');
-                modal.classList.add('hidden');
-            }, 300);
+        // Configuración Inicial
+        const today = new Date();
+        document.getElementById('admin_fecha_emision').valueAsDate = today;
+        const nextYear = new Date();
+        nextYear.setFullYear(today.getFullYear() + 1);
+        document.getElementById('admin_fecha_vencimiento').valueAsDate = nextYear;
+
+        // Whatsapp
+        function contactWhatsapp(msg) { window.open(`https://wa.me/584127008160?text=${encodeURIComponent(msg)}`, '_blank'); }
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
+        
+        function cambiarSistema() {
+            const sys = document.getElementById('sys_selector').value;
+            const empresa = document.getElementById('pdf_empresa');
+            if(sys === 'conseres') {
+                empresa.innerText = "Servicios Internacionales CONSERES";
+                empresa.style.color = "#1a237e";
+            } else {
+                empresa.innerText = "MULTISEGUROS 881 C.A.";
+                empresa.style.color = "#1b5e20";
+            }
         }
     </script>
 </body>
